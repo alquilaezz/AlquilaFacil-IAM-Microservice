@@ -7,3 +7,5 @@ passlib[bcrypt]
 pyotp
 python-dotenv
 pydantic-settings
+email-validator
+httpx
