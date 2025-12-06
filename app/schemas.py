@@ -20,7 +20,7 @@ class UserOut(UserBase):
         orm_mode = True
 
 class Token(BaseModel):
-    access_token: str
+    token: str
     token_type: str = "bearer"
 
 class LoginRequest(BaseModel):
@@ -29,7 +29,7 @@ class LoginRequest(BaseModel):
 
 class LoginResponse(BaseModel):
     requires_mfa: bool
-    access_token: Optional[str] = None
+    token: Optional[str] = None
     temp_token: Optional[str] = None
 
 class VerifyMfaRequest(BaseModel):
