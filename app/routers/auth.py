@@ -58,7 +58,7 @@ def sign_in(payload: schemas.LoginRequest, db: Session = Depends(get_db)):
     # Si no tiene MFA → devolvemos access_token directo
     if not user.mfa_key:
         token = create_access_token(user.id, role)
-        return schemas.LoginResponse(requires_mfa=False, access_token=token)
+        return schemas.LoginResponse(requires_mfa=False, token=token)
 
     # Tiene MFA → devolvemos temp_token
     temp_token = create_mfa_temp_token(user.id)
@@ -92,7 +92,7 @@ def verify_mfa(payload: schemas.VerifyMfaRequest, db: Session = Depends(get_db))
         db.commit()
 
     access_token = create_access_token(user.id, user.role.role)
-    return schemas.Token(access_token=access_token)
+    return schemas.Token(token=access_token)
 
 @router.post("/mfa/enable", response_model=schemas.EnableMfaResponse)
 def enable_mfa(authorization: str = Header(...), db: Session = Depends(get_db)):
