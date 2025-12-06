@@ -49,7 +49,7 @@ def sign_up(payload: schemas.UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/sign-in", response_model=schemas.LoginResponse)
 def sign_in(payload: schemas.LoginRequest, db: Session = Depends(get_db)):
-    user = db.query(models.User).filter(models.User.username == payload.username).first()
+    user = db.query(models.User).filter(models.User.email == payload.email).first()
     if not user or not verify_password(payload.password, user.password_hash):
         raise HTTPException(status_code=401, detail="Incorrect username or password")
 
