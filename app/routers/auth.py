@@ -40,8 +40,12 @@ def sign_up(payload: schemas.UserCreate, db: Session = Depends(get_db)):
     db.add(user)
     db.commit()
     db.refresh(user)
+    
+    response = {
+        "message": "Usuario registrado"
+    }
 
-    return schemas.UserOut(id=user.id, username=user.username, email=user.email, role=role.role)
+    return response
 
 @router.post("/sign-in", response_model=schemas.LoginResponse)
 def sign_in(payload: schemas.LoginRequest, db: Session = Depends(get_db)):
